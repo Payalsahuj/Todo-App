@@ -7,6 +7,7 @@ import { Todo } from "../page";
 import NoteIcon from "@mui/icons-material/Note";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteIcon from "@mui/icons-material/Delete";
+import TodoDetailsModal from "./TodoDetailsModal";
 
 export default function TodoItem({ todo }: { todo: Todo }) {
   const [showDetails, setShowDetails] = useState(false);
@@ -75,6 +76,14 @@ export default function TodoItem({ todo }: { todo: Todo }) {
           </button>
         </div>
       </div>
+
+      {showDetails && (
+        <TodoDetailsModal
+          todo={todo}
+          users={todo.assignedUsers}
+          onClose={() => setShowDetails(false)}
+        />
+      )}
     </>
   );
 }
