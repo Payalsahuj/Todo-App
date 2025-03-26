@@ -1,6 +1,14 @@
+import { verifyAndDecodeToken } from "@/lib/verifyToken";
 import Todo from "@/model/Todo";
+import { cookies } from "next/headers";
 
 export async function GET(request: Request) {
+  const pageCookies = await cookies();
+  const token = pageCookies.get("token")?.value;
+  const user = await verifyAndDecodeToken(token);
+  if (!user?.email) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
   const params = new URL(request.url).pathname.split("/");
   const id = params[params.length - 1];
 
@@ -12,6 +20,12 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const pageCookies = await cookies();
+  const token = pageCookies.get("token")?.value;
+  const user = await verifyAndDecodeToken(token);
+  if (!user?.email) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
   const body = await request.json();
   const { title, description, priority, tags, assignedUsers, notes } = body;
 
@@ -30,6 +44,12 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  const pageCookies = await cookies();
+  const token = pageCookies.get("token")?.value;
+  const user = await verifyAndDecodeToken(token);
+  if (!user?.email) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
   const params = new URL(request.url).pathname.split("/");
   const id = params[params.length - 1];
 
@@ -41,6 +61,12 @@ export async function DELETE(request: Request) {
 }
 
 export async function PUT(request: Request) {
+  const pageCookies = await cookies();
+  const token = pageCookies.get("token")?.value;
+  const user = await verifyAndDecodeToken(token);
+  if (!user?.email) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
   const params = new URL(request.url).pathname.split("/");
   const id = params[params.length - 1];
 
