@@ -1,9 +1,7 @@
-"use client";
-
 import type React from "react";
 
 import { useContext, useState } from "react";
-import { Todo, User } from "../page";
+import { Todo, User } from "./HomePage";
 
 interface TodoDetailsModalProps {
   todo: Todo;

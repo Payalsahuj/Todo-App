@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Dropdown } from "./Dropdown";
 
-import { todoContext } from "../page";
+import { todoContext } from "./HomePage";
 import Image from "next/image";
 import { Button } from "./Button";
 

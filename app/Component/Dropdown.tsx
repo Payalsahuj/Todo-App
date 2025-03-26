@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
-import { todoContext, User } from "../page";
-import Image from "next/image";
+import { todoContext, User } from "./HomePage";
 
 export const Dropdown = () => {
   const { currentUser, setCurrentUser, userList } = useContext(todoContext);

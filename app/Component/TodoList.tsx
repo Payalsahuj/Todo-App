@@ -1,9 +1,7 @@
-"use client";
-
 import type React from "react";
 
 import { useState } from "react";
-import { Todo } from "../page";
+import { Todo } from "./HomePage";
 import NoteIcon from "@mui/icons-material/Note";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteIcon from "@mui/icons-material/Delete";
