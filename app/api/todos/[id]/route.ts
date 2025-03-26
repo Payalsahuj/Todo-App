@@ -39,3 +39,27 @@ export async function DELETE(request: Request) {
   }
   return Response.json({ data: todo });
 }
+
+export async function PUT(request: Request) {
+  const params = new URL(request.url).pathname.split("/");
+  const id = params[params.length - 1];
+
+  const body = await request.json();
+  const { title, description, priority, tags, assignedUsers } = body;
+
+  const todo = await Todo.findByIdAndUpdate(
+    id,
+    {
+      title,
+      description,
+      priority,
+      tags,
+      assignedUsers,
+    },
+    { new: true }
+  );
+  if (!todo) {
+    return Response.json({ error: "Todo not found" }, { status: 404 });
+  }
+  return Response.json({ data: todo });
+}
