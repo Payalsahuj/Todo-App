@@ -1,15 +1,12 @@
-import Image from "next/image";
-import { ExportButton } from "./Component/ExportButton";
+"use client";
+import { useState } from "react";
+import { Header } from "./Component/Header";
 
 export default function Home() {
+  const [userList, setUserList] = useState([]);
   return (
     <div className=" app-container ">
-      <header className="app-header">
-        <h1>Todo List</h1>
-        <div className="user-controls">
-          <ExportButton />
-        </div>
-      </header>
+      <Header />
       <main className="app-main">hb</main>
     </div>
   );
