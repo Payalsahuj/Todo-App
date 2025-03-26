@@ -22,13 +22,13 @@ export const Header = () => {
 
         <div className="user-profile">
           <span className="username">{currentUser?.username}</span>
-          <Image
+          {/* <Image
             src={""}
             alt="User avatar"
             width={36}
             height={36}
             className="avatar"
-          />
+          /> */}
         </div>
       </div>
     </header>
