@@ -4,8 +4,8 @@ import { Header } from "./Component/Header";
 import FilterSidebar from "./Component/FilterSideBar";
 import { Button } from "./Component/Button";
 import SearchBar from "./Component/SearchBar";
-import { todo } from "node:test";
 import TodoItem from "./Component/TodoList";
+import { Pagination } from "./Component/Pagination";
 
 export interface User {
   id: number;
@@ -35,12 +35,15 @@ export const todoContext = createContext({
   currentUser: null as User | null,
   setCurrentUser: (user: User) => {},
   todoList: [] as Todo[],
+  currentPage: 1 as Number,
+  setCurrentPage: ((e: Number) => {}) as any,
 });
 
 export default function Home() {
   const [userList, setUserList] = useState([] as User[]);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [todoList, setTodoList] = useState([] as Todo[]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     setUserList([
@@ -74,11 +77,71 @@ export default function Home() {
         createdAt: "2023-05-01T12:00:00Z",
         updatedAt: "2023-05-10T14:30:00Z",
       },
+      {
+        id: 1,
+        title: "Complete the todo app",
+        description: "Finish implementing all required features",
+        priority: "high",
+        completed: false,
+        tags: ["work", "coding"],
+        assignedUsers: ["@john", "@sarah"],
+        notes: [
+          {
+            content: "Remember to add proper error handling",
+            date: "2023-05-10",
+          },
+        ],
+        createdAt: "2023-05-01T12:00:00Z",
+        updatedAt: "2023-05-10T14:30:00Z",
+      },
+      {
+        id: 1,
+        title: "Complete the todo app",
+        description: "Finish implementing all required features",
+        priority: "high",
+        completed: false,
+        tags: ["work", "coding"],
+        assignedUsers: ["@john", "@sarah"],
+        notes: [
+          {
+            content: "Remember to add proper error handling",
+            date: "2023-05-10",
+          },
+        ],
+        createdAt: "2023-05-01T12:00:00Z",
+        updatedAt: "2023-05-10T14:30:00Z",
+      },
+      {
+        id: 1,
+        title: "Complete the todo app",
+        description: "Finish implementing all required features",
+        priority: "high",
+        completed: false,
+        tags: ["work", "coding"],
+        assignedUsers: ["@john", "@sarah"],
+        notes: [
+          {
+            content: "Remember to add proper error handling",
+            date: "2023-05-10",
+          },
+        ],
+        createdAt: "2023-05-01T12:00:00Z",
+        updatedAt: "2023-05-10T14:30:00Z",
+      },
     ]);
   }, []);
+
   return (
     <todoContext.Provider
-      value={{ userList, setUserList, currentUser, setCurrentUser, todoList }}
+      value={{
+        userList,
+        setUserList,
+        currentUser,
+        setCurrentUser,
+        todoList,
+        currentPage,
+        setCurrentPage,
+      }}
     >
       <div className=" app-container ">
         <Header />
@@ -99,6 +162,7 @@ export default function Home() {
                 <TodoItem key={index} todo={todo} />
               ))}
             </div>
+            <Pagination />
           </section>
         </main>
       </div>
