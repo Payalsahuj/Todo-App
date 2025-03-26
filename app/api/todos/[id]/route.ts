@@ -19,30 +19,6 @@ export async function GET(request: Request) {
   return Response.json({ data: todo });
 }
 
-export async function POST(request: Request) {
-  const pageCookies = await cookies();
-  const token = pageCookies.get("token")?.value;
-  const user = await verifyAndDecodeToken(token);
-  if (!user?.email) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
-  }
-  const body = await request.json();
-  const { title, description, priority, tags, assignedUsers, notes } = body;
-
-  //   TOdo: Add validation to check if assignedUsers are valid users
-
-  const todo = new Todo({
-    title,
-    description,
-    priority,
-    tags,
-    assignedUsers,
-    notes,
-  });
-  await todo.save();
-  return Response.json({ data: todo });
-}
-
 export async function DELETE(request: Request) {
   const pageCookies = await cookies();
   const token = pageCookies.get("token")?.value;
