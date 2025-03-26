@@ -3,6 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import { Header } from "./Component/Header";
 import FilterSidebar from "./Component/FilterSideBar";
 import { Button } from "./Component/Button";
+import SearchBar from "./Component/SearchBar";
 
 export interface User {
   id: number;
@@ -51,7 +52,10 @@ export default function Home() {
                 startIcon={false}
                 onClick={() => {}}
               />
+              <SearchBar />
             </div>
+
+            {/* List*/}
           </section>
         </main>
       </div>
