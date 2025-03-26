@@ -2,6 +2,7 @@
 import { createContext, useEffect, useState } from "react";
 import { Header } from "./Component/Header";
 import FilterSidebar from "./Component/FilterSideBar";
+import { Button } from "./Component/Button";
 
 export interface User {
   id: number;
@@ -42,6 +43,16 @@ export default function Home() {
         <Header />
         <main className="app-main">
           <FilterSidebar />
+          <section className="todo-content">
+            <div className="todo-actions">
+              <Button
+                varient={"btn-primary"}
+                label={"Add Todo"}
+                startIcon={false}
+                onClick={() => {}}
+              />
+            </div>
+          </section>
         </main>
       </div>
     </todoContext.Provider>

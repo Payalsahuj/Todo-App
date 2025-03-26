@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { Dropdown } from "./Dropdown";
-import { ExportButton } from "./ExportButton";
+
 import { todoContext } from "../page";
 import Image from "next/image";
+import { Button } from "./Button";
 
 export const Header = () => {
   const { currentUser } = useContext(todoContext);
@@ -10,7 +11,12 @@ export const Header = () => {
     <header className="app-header">
       <h1>Todo List</h1>
       <div className="user-controls">
-        <ExportButton />
+        <Button
+          varient={"btn-secondary"}
+          label={"Export"}
+          startIcon={true}
+          onClick={() => {}}
+        />
 
         <Dropdown />
 
