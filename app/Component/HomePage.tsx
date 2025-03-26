@@ -39,7 +39,13 @@ export const todoContext = createContext({
   setCurrentPage: ((e: Number) => {}) as any,
 });
 
-export default function Home() {
+export default function Home({
+  email,
+  username,
+}: {
+  email: string;
+  username: string;
+}) {
   const [userList, setUserList] = useState([] as User[]);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [todoList, setTodoList] = useState([] as Todo[]);
