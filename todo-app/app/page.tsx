@@ -1,8 +1,7 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
 import { Header } from "./Component/Header";
-
-// imake interface
+import FilterSidebar from "./Component/FilterSideBar";
 
 export interface User {
   id: number;
@@ -41,7 +40,9 @@ export default function Home() {
     >
       <div className=" app-container ">
         <Header />
-        <main className="app-main">hb</main>
+        <main className="app-main">
+          <FilterSidebar />
+        </main>
       </div>
     </todoContext.Provider>
   );

@@ -36,6 +36,14 @@ body {
   min-height: 100vh;
 }
 
+.app-sidebar {
+  width: 250px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 1.5rem;
+}
+
 .app-main {
   display: flex;
   flex: 1;
@@ -161,4 +169,36 @@ body {
 
 .user-dropdown-item span {
   font-size: 0.9rem;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-options label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.tag-placeholder {
+  height: 24px;
+  background-color: var(--medium-gray);
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
 }
