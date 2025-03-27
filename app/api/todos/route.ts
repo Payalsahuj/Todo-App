@@ -36,10 +36,11 @@ export async function GET(request: Request) {
   if (assignedUser?.length) {
     query.assignedUsers = { $in: assignedUser };
   }
+  // descending order of createdAt
   const todos = await Todo.find(
     query,
     {},
-    { limit: limit, skip: page * limit }
+    { limit: limit, skip: page * limit, sort: { createdAt: -1 } }
   );
 
   const totalPage = (await Todo.countDocuments(query)) / limit;
