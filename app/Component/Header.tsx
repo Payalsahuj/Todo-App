@@ -37,7 +37,7 @@ export const Header = ({ username }: { username: string }) => {
         <div className="user-profile">
           <span className="username">{username}</span>
           <Image
-            src={`https://api.dicebear.com/9.x/bottts/svg?seed=${currentUser?.username}&r=50&size=34`}
+            src={`https://api.dicebear.com/9.x/bottts/svg?seed=${username}&r=50&size=34`}
             alt="User avatar"
             width={36}
             height={36}
