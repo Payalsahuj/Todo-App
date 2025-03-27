@@ -1,8 +1,11 @@
 import { verifyAndDecodeToken } from "@/lib/verifyToken";
 import Todo from "@/model/Todo";
 import { cookies } from "next/headers";
+import connectDB from "@/lib/connectDB";
 
 export async function GET(request: Request) {
+  await connectDB();
+
   const params = new URL(request.url).searchParams;
   const page = Number(params.get("page") || 1) - 1;
   const search = params.get("search") || "";
@@ -45,6 +48,8 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  await connectDB();
+
   const pageCookies = await cookies();
   const token = pageCookies.get("token")?.value;
   const user = await verifyAndDecodeToken(token);

@@ -1,8 +1,11 @@
 import { verifyAndDecodeToken } from "@/lib/verifyToken";
 import Todo from "@/model/Todo";
 import { cookies } from "next/headers";
+import connectDB from "@/lib/connectDB";
 
 export async function GET(request: Request) {
+  await connectDB();
+
   const pageCookies = await cookies();
   const token = pageCookies.get("token")?.value;
   const user = await verifyAndDecodeToken(token);
@@ -20,6 +23,8 @@ export async function GET(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  await connectDB();
+
   const pageCookies = await cookies();
   const token = pageCookies.get("token")?.value;
   const user = await verifyAndDecodeToken(token);
@@ -37,6 +42,8 @@ export async function DELETE(request: Request) {
 }
 
 export async function PUT(request: Request) {
+  await connectDB();
+
   const pageCookies = await cookies();
   const token = pageCookies.get("token")?.value;
   const user = await verifyAndDecodeToken(token);
