@@ -1,26 +1,52 @@
 import type React from "react";
 
-import { useState } from "react";
-import { Todo } from "./HomePage";
+import { useContext, useState } from "react";
+import { Todo, todoContext } from "./HomePage";
 import NoteIcon from "@mui/icons-material/Note";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TodoDetailsModal from "./TodoDetailsModal";
+import axios from "axios";
+import { DeleteModal } from "./DeleteModal";
 
 export default function TodoItem({ todo }: { todo: Todo }) {
   const [showDetails, setShowDetails] = useState(false);
+  const { setIsEditing, getTodoList, setTitle, setDescription, setPriority } =
+    useContext(todoContext);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+  const handleCheckboxChange = async (todo: Todo) => {
+    try {
+      const updatedTodo = await axios.put(`/api/todos/${todo._id}`, {
+        completed: !todo.completed,
+      });
+
+      if (updatedTodo) {
+        console.log("Todo updated successfully");
+      }
+    } catch (err) {
+      console.error("Failed to update todo:", err);
+    } finally {
+      getTodoList();
+    }
+  };
 
   return (
     <>
       <div className="todo-item" onClick={() => setShowDetails(true)}>
-        <div className="todo-checkbox" onClick={() => {}}>
+        <div
+          className="todo-checkbox"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <input
             type="checkbox"
-            id={`todo-${todo.id}`}
+            id={`todo-${todo._id}`}
             checked={todo.completed}
-            readOnly
+            onChange={() => handleCheckboxChange(todo)}
           />
-          <label htmlFor={`todo-${todo.id}`}></label>
+          <label htmlFor={`todo-${todo._id}`}></label>
         </div>
         <div className="todo-content">
           <h3 className="todo-title">{todo.title}</h3>
@@ -60,6 +86,10 @@ export default function TodoItem({ todo }: { todo: Todo }) {
             title="Edit todo"
             onClick={(e) => {
               e.stopPropagation();
+              setTitle(todo.title);
+              setDescription(todo.description);
+              setPriority(todo.priority);
+              setIsEditing(true);
               setShowDetails(true);
             }}
           >
@@ -68,7 +98,10 @@ export default function TodoItem({ todo }: { todo: Todo }) {
           <button
             className="todo-delete-btn"
             title="Delete todo"
-            // onClick={() => {})
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpenDeleteModal(true);
+            }}
           >
             <DeleteIcon />
           </button>
@@ -79,8 +112,16 @@ export default function TodoItem({ todo }: { todo: Todo }) {
         <TodoDetailsModal
           todo={todo}
           users={todo.assignedUsers}
-          onClose={() => setShowDetails(false)}
+          onClose={() => {
+            setIsEditing(false);
+            setShowDetails(false);
+          }}
         />
+      )}
+      {openDeleteModal ? (
+        <DeleteModal onClose={() => setOpenDeleteModal(false)} todo={todo} />
+      ) : (
+        <></>
       )}
     </>
   );

@@ -1,7 +1,8 @@
 import type React from "react";
 
 import { useContext, useState } from "react";
-import { Todo, User } from "./HomePage";
+import { Todo, todoContext, User } from "./HomePage";
+import axios from "axios";
 
 interface TodoDetailsModalProps {
   todo: Todo;
@@ -14,11 +15,64 @@ export default function TodoDetailsModal({
   users,
   onClose,
 }: TodoDetailsModalProps) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState("");
   const [noteContent, setNoteContent] = useState("");
+  const {
+    isEditing,
+    setIsEditing,
+    title,
+    setTitle,
+    description,
+    setDescription,
+    priority,
+    setPriority,
+    getTodoList,
+  } = useContext(todoContext);
+
+  const handleUdate = async (todo: Todo) => {
+    try {
+      const updatedTodo = await axios.put(`/api/todos/${todo._id}`, {
+        title,
+        description,
+        priority,
+      });
+
+      if (updatedTodo) {
+        console.log("Todo updated successfully");
+      }
+    } catch (err) {
+      console.error("Failed to update todo:", err);
+    } finally {
+      onClose();
+      getTodoList();
+    }
+  };
+
+  const handleAddNote = async (todo: Todo) => {
+    if (!noteContent.trim()) {
+      alert("Note cannot be empty.");
+      return;
+    }
+
+    try {
+      const newNote = {
+        content: noteContent,
+        date: new Date().toISOString(),
+      };
+
+      const updatedNotes = [...(todo?.notes || []), newNote];
+
+      const response = await axios.post(`/api/todos/${todo?._id}/notes`, {
+        notes: updatedNotes,
+      });
+    } catch (error) {
+      console.error("Error adding note:", error);
+      alert("Failed to add note.");
+    } finally {
+      setNoteContent("");
+      getTodoList();
+      // onClose();
+    }
+  };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -55,6 +109,7 @@ export default function TodoDetailsModal({
                   id="edit-description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
+                  required
                 ></textarea>
               </div>
 
@@ -64,6 +119,7 @@ export default function TodoDetailsModal({
                   id="edit-priority"
                   value={priority}
                   onChange={(e) => setPriority(e.target.value as any)}
+                  required
                 >
                   <option value="high">High</option>
                   <option value="medium">Medium</option>
@@ -82,7 +138,7 @@ export default function TodoDetailsModal({
                 <button
                   type="button"
                   className="btn btn-primary"
-                  onClick={() => {}}
+                  onClick={() => handleUdate(todo)}
                 >
                   Save Changes
                 </button>
@@ -97,7 +153,12 @@ export default function TodoDetailsModal({
                 </div>
                 <button
                   className="btn btn-secondary"
-                  onClick={() => setIsEditing(true)}
+                  onClick={() => {
+                    setTitle(todo.title);
+                    setDescription(todo.description);
+                    setPriority(todo.priority);
+                    setIsEditing(true);
+                  }}
                 >
                   <i className="fas fa-edit"></i> Edit
                 </button>
@@ -122,7 +183,7 @@ export default function TodoDetailsModal({
                 <div>
                   <strong>Created:</strong>
                   <span className="ml-2">
-                    {new Date(todo.createdAt).toLocaleDateString()}
+                    {new Date(todo?.createdAt || "").toLocaleDateString()}
                   </span>
                 </div>
               </div>
@@ -172,15 +233,24 @@ export default function TodoDetailsModal({
                   )}
                 </div>
 
-                <form className="add-note-form" onSubmit={() => {}}>
+                <form
+                  className="add-note-form"
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    handleAddNote(todo);
+                  }}
+                >
                   <textarea
                     value={noteContent}
                     onChange={(e) => setNoteContent(e.target.value)}
                     placeholder="Add a note..."
                     required
                   ></textarea>
-                  <button type="submit" className="btn btn-primary">
-                    <i className="fas fa-plus"></i> Add Note
+                  <button
+                    type="submit"
+                    className="btn btn-primary  justify-center flex"
+                  >
+                    Add Note
                   </button>
                 </form>
               </div>

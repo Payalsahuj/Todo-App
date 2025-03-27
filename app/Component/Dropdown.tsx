@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { todoContext, User } from "./HomePage";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export const Dropdown = () => {
   const { currentUser, setCurrentUser, userList } = useContext(todoContext);
@@ -17,11 +18,23 @@ export const Dropdown = () => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="current-username">{currentUser?.username}</span>
-        <i className="fas fa-chevron-down"></i>
+        <KeyboardArrowDownIcon />
       </button>
 
       {isOpen ? (
         <div className="user-dropdown absolute top-full left-0 w-[200px] bg-white border border-gray-200 rounded shadow-md mt-2 z-50">
+          <div
+            className="user-dropdown-item flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-100"
+            onClick={() =>
+              handleUserSwitch({
+                id: 0,
+                username: "All Todos",
+                email: "",
+              })
+            }
+          >
+            <span className="text-sm">{"All Todos"}</span>
+          </div>
           {userList.map((user) => (
             <div
               key={user.id}

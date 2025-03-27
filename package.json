@@ -15,6 +15,7 @@
     "@mui/icons-material": "^6.4.8",
     "@mui/material": "^6.4.8",
     "@react-oauth/google": "^0.12.1",
+    "axios": "^1.8.4",
     "jsonwebtoken": "^9.0.2",
     "magic-sdk": "^29.0.2",
     "mongoose": "^8.13.0",

@@ -19,7 +19,7 @@ const AppHolder = async () => {
     return <Login />;
   }
 
-  return <Home email={user?.email} username={user?.split?.("@")?.[0]} />;
+  return <Home email={user?.email} username={user?.email?.split?.("@")?.[0]} />;
 };
 
 export default AppHolder;

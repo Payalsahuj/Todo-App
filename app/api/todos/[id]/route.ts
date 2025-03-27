@@ -47,7 +47,7 @@ export async function PUT(request: Request) {
   const id = params[params.length - 1];
 
   const body = await request.json();
-  const { title, description, priority, tags, assignedUsers } = body;
+  const { title, description, priority, tags, assignedUsers, completed } = body;
 
   const todo = await Todo.findByIdAndUpdate(
     id,
@@ -57,6 +57,7 @@ export async function PUT(request: Request) {
       priority,
       tags,
       assignedUsers,
+      completed,
     },
     { new: true }
   );

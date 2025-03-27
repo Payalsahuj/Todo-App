@@ -85,7 +85,10 @@ body {
   background-color: var(--secondary-color);
   color: white;
 }
-
+.btn-danger {
+  background-color: var(--danger-color);
+  color: white;
+}
 .btn-secondary:hover {
   background-color: #5a6268;
 }
@@ -105,8 +108,7 @@ body {
 .avatar {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .avatar-small {
@@ -253,10 +255,6 @@ body {
   border-bottom: 1px solid var(--medium-gray);
   transition: var(--transition);
   cursor: pointer;
-}
-
-.todo-item:hover {
-  background-color: var(--light-gray);
 }
 
 .todo-checkbox {
