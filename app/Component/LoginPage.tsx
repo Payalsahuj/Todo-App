@@ -4,6 +4,10 @@ import { Magic } from "magic-sdk";
 import { useState } from "react";
 
 export const Login = () => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
   const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_CLIENT || "", {
     deferPreload: true,
   });
@@ -68,7 +72,7 @@ export const Login = () => {
         <button
           onClick={handleLogin}
           disabled={isLoading}
-          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors disabled:bg-blue-300"
+          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors disabled:bg-blue-300 cursor-pointer"
         >
           {isLoading ? "Logging in..." : "Login to continue"}
         </button>
