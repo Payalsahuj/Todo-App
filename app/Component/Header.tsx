@@ -37,7 +37,7 @@ export const Header = ({ username }: { username: string }) => {
         <div className="user-profile">
           <span className="username">{username}</span>
           <Image
-            src={`https://api.dicebear.com/9.x/bottts/svg?seed=${currentUser.username}&r=50&size=34`}
+            src={`https://api.dicebear.com/9.x/bottts/svg?seed=${currentUser?.username}&r=50&size=34`}
             alt="User avatar"
             width={36}
             height={36}
@@ -46,6 +46,16 @@ export const Header = ({ username }: { username: string }) => {
             unoptimized
           />
         </div>
+        <span
+          className="cursor-pointer"
+          onClick={() => {
+            document.cookie =
+              "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = "/";
+          }}
+        >
+          Logout
+        </span>
       </div>
     </header>
   );

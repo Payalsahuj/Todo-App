@@ -27,7 +27,7 @@ export const Dropdown = () => {
             className="user-dropdown-item flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-100"
             onClick={() =>
               handleUserSwitch({
-                id: 0,
+                _id: "",
                 username: "All Todos",
                 email: "",
               })
@@ -37,7 +37,7 @@ export const Dropdown = () => {
           </div>
           {userList.map((user) => (
             <div
-              key={user.id}
+              key={user._id}
               className="user-dropdown-item flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-100"
               onClick={() => handleUserSwitch(user)}
             >

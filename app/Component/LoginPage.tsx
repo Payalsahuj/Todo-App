@@ -44,7 +44,7 @@ export const Login = () => {
             });
         })
         .catch(() => {
-          alert("Login failed");
+          setIsLoading(false);
         });
     } catch (err) {
       console.error("Login error:", err);
