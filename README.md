@@ -160,8 +160,3 @@ JWT_SECRET=<Your JWT Secret Key>
 
 ---
 
-## Additional Notes
-
-- For improved security, ensure JWT tokens have a proper expiration time.
-- Implement better error handling and input validation for robust APIs.
-- Consider optimizing database queries for large datasets.
